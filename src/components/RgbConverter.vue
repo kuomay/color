@@ -1,7 +1,7 @@
 <template>
-    <div class="slider">
-      <h1>RGB to HEX</h1>
-      <div>
+  <div class="slider">
+    <h1 :style="{ backgroundColor: rgbaCode }">RGB to HEX</h1>
+    <div>
         <span class="red">R</span>
         <input type="range" v-model="rgb[0]" min="0" max="255">
         <span class="red">{{ rgb[0] }}</span>
@@ -49,9 +49,8 @@
     }
   }
 
-  hexCode.value = `#${rgb.value.map(c => c.toString(16).padStart(2, '0')).join('')}`;
+  hexCode.value = `#${rgb.value.map(c => c.toString(16).padStart(2, '0')).join('').toLowerCase()}`;
   const newRgbaCode = `rgba(${rgb.value.join(', ')}, ${alpha.value.toFixed(2)})`;
-  document.documentElement.style.setProperty('--background-color', newRgbaCode);
   rgbaCode.value = newRgbaCode;
 });
 
@@ -63,11 +62,18 @@
   }
   
   body {
-    font-family: "Roboto", sans-serif;
-    background-color: var(--background-color);
-    font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--background-color);
+  font-weight: bold;
+  color: white;
+}
+
+.hexCode {
     color: white;
-  }
+    font-size: 24px;
+}
+
+
   
   .slider {
     height: 600px;
